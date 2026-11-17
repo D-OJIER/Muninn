@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Muninn</title>
+    <link rel="stylesheet" href="/src/sidepanel/style.css" />
+  </head>
+  <body>
+    <header class="top">
+      <div class="brand">
+        <span class="raven" aria-hidden="true">◆</span>
+        <h1>Muninn</h1>
+      </div>
+      <div class="status" id="status" role="status">
+        <span class="dot" id="status-dot"></span>
+        <span id="status-text">Checking private mode…</span>
+      </div>
+    </header>
+
+    <section class="banner" id="prepare-banner" hidden>
+      <p id="prepare-text">Private mode needs Chrome's on-device model.</p>
+      <button type="button" id="prepare-btn" class="secondary">Enable private mode</button>
+      <progress id="prepare-progress" max="1" value="0" hidden></progress>
+    </section>
+
+    <section class="banner warn" id="config-banner" hidden></section>
+
+    <form id="read-form" class="card">
+      <label for="message">Work message you received</label>
+      <textarea id="message" rows="6" placeholder="Paste an email or chat message, or select it on any page and choose “Ask Muninn about this message”." required></textarea>
+
+      <div class="row">
+        <div class="field">
+          <label for="sender">From</label>
+          <input id="sender" type="text" placeholder="e.g. Dana Smith" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="relationship">Their role to you</label>
+          <select id="relationship">
+            <option value="manager">Manager</option>
+            <option value="leader">Senior leader</option>
+            <option value="peer">Peer</option>
+            <option value="report">Direct report</option>
+            <option value="client">Client</option>
+            <option value="partner">Vendor or partner</option>
+            <option value="recruiter">Recruiter</option>
+            <option value="colleague">Other colleague</option>
+          </select>
+        </div>
+      </div>
+
+      <details class="dev">
+        <summary>Testing options</summary>
+        <label class="check"><input type="checkbox" id="force-cloud" /> Use the cloud even if private mode is ready</label>
+      </details>
+
+      <button type="submit" id="read-btn" class="primary">Read message</button>
+    </form>
+
+    <section class="card consent" id="consent" hidden>
+      <h2>This needs the cloud</h2>
+      <p id="consent-reason"></p>
+      <p class="muted">Exactly what will be sent:</p>
+      <ul class="chips" id="consent-items"></ul>
+      <pre id="consent-payload"></pre>
+      <div class="actions">
+        <button type="button" id="consent-send" class="primary">Send anonymized</button>
+        <button type="button" id="consent-cancel" class="secondary">Cancel</button>
+      </div>
+    </section>
+
+    <section class="card" id="loading" hidden>
+      <div class="skeleton"></div>
+      <div class="skeleton short"></div>
+      <p class="muted" id="loading-text">Reading…</p>
+    </section>
+
+    <section class="card error" id="error" hidden></section>
+
+    <section class="card result" id="result" hidden>
+      <div class="result-head">
+        <span class="badge" id="source-badge"></span>
+        <span class="urgency" id="urgency"></span>
+      </div>
+      <p class="summary" id="summary"></p>
+
+      <h3>Possible readings</h3>
+      <ol class="readings" id="readings"></ol>
+
+      <h3>Reply plan</h3>
+      <ul class="plan" id="plan"></ul>
+
+      <div class="clarify" id="clarify-box">
+        <h3>If you're unsure, you could ask</h3>
+        <p id="clarify"></p>
+        <button type="button" id="copy-clarify" class="secondary small">Copy</button>
+      </div>
+      <p class="muted small" id="unresolved" hidden></p>
+    </section>
+
+    <section class="card receipt" id="receipt-section">
+      <details>
+        <summary>Privacy receipt <span class="count" id="receipt-count">0 cloud calls</span></summary>
+        <p class="muted small">Everything Muninn has sent to the cloud in this browser session. On-device reads are not listed because nothing leaves your computer.</p>
+        <ol id="receipt-list"></ol>
+      </details>
+    </section>
+
+    <script type="module" src="/src/sidepanel/main.ts"></script>
+  </body>
+</html>
